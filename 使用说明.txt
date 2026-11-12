@@ -1,0 +1,40 @@
+﻿Compositor Windows v1.5.9 · 简体中文界面插件 · 黑体版（非官方）
+适用环境：Cengokill 发布的 Windows 11 x64 版，MSI 或便携版均可。使用时无需编译、安装 Qt、联网或管理员权限。
+
+界面字体
+优先使用本机黑体（SimHei）。没有安装黑体时，依次尝试微软雅黑 UI、微软雅黑及 Noto Sans CJK SC。保留原有界面字号和标题层级。
+已有汉化包的用户可先退出 Compositor，然后从本包复制 plugins\generic\compositorzh.dll，覆盖原汉化包同位置的文件。
+
+怎样使用
+1. 先保存工作并关闭正在运行的 Compositor。
+2. 将整个 ZIP 解压到一个固定文件夹。不要直接在压缩软件中运行，也不要把启动器单独移出文件夹。
+3. 双击 Compositor-ZH.exe。它优先查找已记录的位置和 MSI 安装位置。若弹出文件选择框，请到原软件目录选择 Compositor.exe。便携版请选解压后与 Qt6Widgets.dll 同目录的 Compositor.exe。
+4. 打开后查看“文件 → 图像焦点堆栈…”和“滤镜 → 镜头效果…”。新建画布页面的“预设、单位、宽度、高度、分辨率”也应为中文。
+5. 以后从 Compositor-ZH.exe 进入中文界面。需要桌面入口时，请为此文件创建快捷方式。直接打开原版或用原文件关联启动仍进入英文界面。
+
+恢复和排查
+• 切回英文：关闭中文窗口，从原来的快捷方式启动。卸载插件时关闭软件，删除解压出的汉化包文件夹即可。
+• 找不到程序：MSI 默认路径为 %LOCALAPPDATA%\Programs\CompositorWindows\Compositor.exe；自定义安装或便携版请手动选择。
+• 换了安装位置：可删除启动器旁的 Compositor.path，以便重新查找。
+• 若界面全为英文：先关闭旧窗口，确认启动的是 Compositor-ZH.exe，并检查 plugins\generic\compositorzh.dll 仍在启动器旁的相对路径。插件仅适配 1.5.9。
+• 路径中可以有中文和空格。Qt 将英文分号当作插件目录分隔符，因此解压目录名应避开英文分号。
+
+汉化范围与术语
+主菜单、工具栏、欢迎页、图层与蒙版、选区和变换、常用调整与滤镜、24 种图层混合模式、部分 RAW 显影及导出控件、1.5.9 更新说明。
+“Inverse”位于选择菜单时译为“反选”；图像调整中的“Invert”译为“反相”。“Proof Colors”为“校样颜色”，“RGB Split”为“RGB 通道分离”，“Focus Stack”为“焦点堆栈”。
+命令面板的搜索仍按原版英文索引，输入英文命令名即可。部分动态错误消息、自绘控件和参数仍可能显示英文。像素网格菜单项保留 Pixel Grid，因原程序会按该文字同步勾选状态。项目标签、图层名、文字图层的输入内容不作批量翻译。Windows 原生文件选择框使用系统界面语言。
+
+验证记录
+基于官方 v1.5.9 标签 73a74dbdd5e2f6cf39478f8af2c508d44184938c。使用官方 Qt 6.8.3 MSVC x64 开发包构建插件，核对了其 Qt 导入符号与官方便携版内三个 Qt DLL 的导出表。Windows 启动器与插件均为 x64 PE 文件。
+在 Linux 同版 Qt 的离屏控件测试中，通过原生 Qt 插件入口验证了菜单助记键、动态“上次滤镜”、新画布、带数据的下拉项、弹窗、快捷键，以及输入框和最近项目名的保留。已做命令表及词典对照，未在真实 Windows 11 桌面完成整机运行和逐窗视觉验收。
+源文件在 src；二进制文件校验值在 SHA256SUMS.txt。若要自行构建，使用 Windows x64 的 MSVC、CMake 及 Qt 6.8.3，执行：
+cmake -S src -B build -A x64 -DCMAKE_PREFIX_PATH=C:\Qt\6.8.3\msvc2022_64
+cmake --build build --config Release
+将生成的 compositorzh.dll 放在启动器旁的 plugins\generic 中。
+
+来源与致谢
+Windows v1.5.9：https://github.com/Cengokill/CompositorWindows/tree/v1.5.9
+Windows 中文术语参考：https://github.com/jax3jie3/CompositorWindows-zh-Hans/tree/54eeae96ab8cc8c433829a755500f79673cb3e85
+Mac 原作：https://github.com/robbietilton/Compositor
+Mac 中文术语参考：https://github.com/mainanamisa/compositor-cn
+部分基础词条源自 Windows 中文 fork。原项目版权及 MIT 许可见 LICENSE.txt。插件动态链接原安装中的 Qt；包内不含原版编辑器或 Qt 运行库。
